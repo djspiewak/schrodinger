@@ -1,7 +1,7 @@
 package org.typelevel.effects.instances
 
 import org.typelevel.effects.{Async, Callback}
-import scala.concurrent.{ExecutionContext, Future, OnCompleteRunnable, Promise}
+import scala.concurrent.{ExecutionContext, Future, Promise}
 import scala.util.control.NonFatal
 import scala.util.{Failure, Success}
 
@@ -9,7 +9,7 @@ import scala.util.{Failure, Success}
 object future extends Async[Future] {
   def create[A](cb: (Callback[A]) => Unit)(implicit ec: ExecutionContext): Future[A] = {
     val p = Promise[A]()
-    ec.execute(new Runnable with OnCompleteRunnable {
+    ec.execute(new Runnable {
       def run(): Unit = {
         try cb(Callback.fromPromise(p))
         catch { case NonFatal(ex) => ec.reportFailure(ex) }

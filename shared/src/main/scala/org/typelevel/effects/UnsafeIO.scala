@@ -16,9 +16,9 @@ trait UnsafeIO[+A] extends Any {
     */
   type Handle = Unit
 
-  /** Mirrors [[Async.unsafeExecuteAsyncIO]]. */
+  /** Mirrors [[Effect.unsafeExecuteAsyncIO]]. */
   def unsafeExecuteAsyncIO(cb: Callback[A])(implicit ec: ExecutionContext): Handle
 
-  /** Mirrors [[Async.unsafeExecuteTrySyncIO]]. */
+  /** Mirrors [[Effect.unsafeExecuteTrySyncIO]]. */
   def unsafeExecuteTrySyncIO(cb: Callback[A])(implicit ec: ExecutionContext): Either[Handle, A]
 }
