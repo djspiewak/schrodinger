@@ -23,9 +23,9 @@ object future extends Async[Future] {
 
     fa.onComplete {
       case Success(value) =>
-        cb.success(value)
+        cb.onSuccess(value)
       case Failure(ex) =>
-        cb.failure(ex)
+        cb.onError(ex)
     }
   }
 

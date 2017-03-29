@@ -13,8 +13,8 @@ trait Async[F[_]] extends Effect[F] {
     *
     * Example:
     * {{{
-    *   Async[Future].create[String] { onFinish =>
-    *     onFinish("Hello, world!")
+    *   Async[Future].create[String] { cb =>
+    *     cb.onSuccess("Hello, world!")
     *   }
     * }}}
     *

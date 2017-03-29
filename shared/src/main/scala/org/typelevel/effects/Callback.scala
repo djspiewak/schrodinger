@@ -25,19 +25,19 @@ import scala.util.{Failure, Success, Try}
   * Example:
   * {{{
   *   val cb = new Callback[String] {
-  *     def success(value: String): Unit =
+  *     def onSuccess(value: String): Unit =
   *       println(s"Message: $value")
-  *     def failure(ex: Throwable): Unit =
+  *     def onError(ex: Throwable): Unit =
   *       System.err.println(s"Error: $ex")
   *   }
   *
   *   // Later ...
-  *   cb.success("Hello, world!")
+  *   cb.onSuccess("Hello, world!")
   * }}}
   */
 trait Callback[-A] {
-  def success(value: A): Unit
-  def failure(ex: Throwable): Unit
+  def onSuccess(value: A): Unit
+  def onError(ex: Throwable): Unit
 }
 
 object Callback {
@@ -46,8 +46,8 @@ object Callback {
     */
   def fromTryFn[A](f: Try[A] => Unit): Callback[A] =
     new Callback[A] {
-      def success(value: A): Unit = f(Success(value))
-      def failure(ex: Throwable): Unit = f(Failure(ex))
+      def onSuccess(value: A): Unit = f(Success(value))
+      def onError(ex: Throwable): Unit = f(Failure(ex))
     }
 
   /** Converts a callback function that receives a
@@ -55,8 +55,8 @@ object Callback {
     */
   def fromEitherFn[A](f: Either[Throwable, A] => Unit): Callback[A] =
     new Callback[A] {
-      def success(value: A): Unit = f(Right(value))
-      def failure(ex: Throwable): Unit = f(Left(ex))
+      def onSuccess(value: A): Unit = f(Right(value))
+      def onError(ex: Throwable): Unit = f(Left(ex))
     }
 
   /** Converts any Scala [[scala.concurrent.Promise Promise]]
@@ -64,7 +64,7 @@ object Callback {
     */
   def fromPromise[A](p: Promise[A]): Callback[A] =
     new Callback[A] {
-      def success(value: A): Unit = p.success(value)
-      def failure(ex: Throwable): Unit = p.failure(ex)
+      def onSuccess(value: A): Unit = p.success(value)
+      def onError(ex: Throwable): Unit = p.failure(ex)
     }
 }
