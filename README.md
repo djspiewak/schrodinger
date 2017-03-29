@@ -12,3 +12,5 @@ Or in other words, this aims to be the
 protocol of `IO` and `Task` data types.
 
 **Work in Progress:** Feedback appreciated! 
+
+This project would be nothing without the colaboration of interested parties. Proposal is being raised here: https://github.com/typelevel/general/issues/66
