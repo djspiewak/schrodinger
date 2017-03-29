@@ -9,7 +9,7 @@ trigger single results, potentially asynchronously.
 
 Or in other words, this aims to be the 
 [Reactive Streams](http://www.reactive-streams.org/)
-protocol of `IO` and `Task` data types.
+protocol of `IO`, `Task` and `Future` data types.
 
 **Work in Progress:** Feedback appreciated! 
 
