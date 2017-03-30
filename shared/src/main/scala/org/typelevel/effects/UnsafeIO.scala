@@ -1,7 +1,5 @@
 package org.typelevel.effects
 
-import scala.concurrent.ExecutionContext
-
 /** Common OOP interface for effects-triggering abstractions,
   * like `IO`, `Task`, `Future`, etc.
   */
@@ -16,9 +14,9 @@ trait UnsafeIO[+A] extends Any {
     */
   type Handle = Unit
 
-  /** Mirrors [[Effect.unsafeExecuteAsyncIO]]. */
-  def unsafeExecuteAsyncIO(cb: Callback[A])(implicit ec: ExecutionContext): Handle
+  /** Mirrors [[Effect.unsafeExtractAsync]]. */
+  def unsafeExtractAsync(cb: Either[Throwable, A] => Unit): Handle
 
-  /** Mirrors [[Effect.unsafeExecuteTrySyncIO]]. */
-  def unsafeExecuteTrySyncIO(cb: Callback[A])(implicit ec: ExecutionContext): Either[Handle, A]
+  /** Mirrors [[Effect.unsafeExtractTrySync]]. */
+  def unsafeExtractTrySync(cb: Either[Throwable, A] => Unit): Either[Handle, A]
 }

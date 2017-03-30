@@ -1,5 +1,7 @@
 package org.typelevel.effects
 
+import org.typelevel.effects.instances.AsyncFuture
+
 import scala.concurrent.{ExecutionContext, Future}
 import scala.language.higherKinds
 
@@ -8,20 +10,20 @@ import scala.language.higherKinds
   */
 trait Async[F[_]] extends Effect[F] {
   /** Creates an `F[A]` instance from a provided function
-    * that will have a [[Callback callback]] injected for
+    * that will have a callback injected for
     * signaling the final result.
     *
     * Example:
     * {{{
     *   Async[Future].create[String] { cb =>
-    *     cb.onSuccess("Hello, world!")
+    *     cb(Right("Hello, world!"))
     *   }
     * }}}
     *
     * @param f is a function that will be called with a callback
     *          for signaling the result once it is ready
     */
-  def create[A](f: Callback[A] => Unit)(implicit ec: ExecutionContext): F[A]
+  def create[A](f: (Either[Throwable, A] => Unit) => Unit): F[A]
 }
 
 object Async {
@@ -29,6 +31,6 @@ object Async {
   def apply[F[_]](implicit F: Async[F]): Async[F] = F
 
   /** Default [[Async]] implementation for Scala's [[scala.concurrent.Future Future]]. */
-  implicit val futureInstance: Async[Future] =
-    instances.future
+  implicit def futureInstance(implicit ec: ExecutionContext): Async[Future] =
+    new AsyncFuture()
 }
