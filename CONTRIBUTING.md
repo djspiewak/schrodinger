@@ -1,25 +1,23 @@
-# Contributing to the Typelevel Effects Project
+# Contributing to Effects4s
 
-The Typelevel Effects project welcomes contributions from anybody who wants to participate in moving this initiative forward. All code or documentation that is contributed will have to be covered by a waiver of all copyrights and other rights as detailed by the COPYING file at the repository's root, the rationale for this is that the APIs defined by this project shall be freely implementable and usable by everyone.
-
-## Copyright Statement
-
-The aforementioned waiver of copyrights and other rights is represented by the addition of a line to the file [CopyrightWaivers.txt](https://github.com/typelevel/effects/blob/master/CopyrightWaivers.txt). For a pull request to be considered every contributor must have signed the copyright statement in this way; this may be included within that same pull request.
+The Effects4s project welcomes contributions from anybody wishing to participate.
+All code or documentation that is provided must be licensed with the same
+license that Effects4s is licensed with (Apache 2.0, see LICENSE.txt).
 
 ## Code of Conduct
 
 People are expected to follow the [Typelevel Code of Conduct](http://typelevel.org/conduct.html)
-when discussing this project on the Github page, Gitter channel, or other venues.
+when discussing Effects4s on the GitHub page, Gitter channel, or other venues.
 
-We hope that our community will be respectful, helpful, and kind. If you find
-yourself embroiled in a situation that becomes heated, or that fails to live up
-to our expectations, you should disengage and contact one of the project maintainers
-in private. We hope to avoid letting minor aggressions and misunderstandings
+We hope that our community will be respectful, helpful, and kind. If you find 
+yourself embroiled in a situation that becomes heated, or that fails to live up 
+to our expectations, you should disengage and contact one of the project maintainers 
+in private. We hope to avoid letting minor aggressions and misunderstandings 
 escalate into larger problems.
 
 ## General Workflow
 
-1. Make sure you have signed the Copyright Statement, see above.
+1. Make sure you can license your work under Apache 2.0 
 
 2. Before starting to work, make sure there is a ticket in the issue
    or create one first. It can help accelerate the acceptance process
@@ -38,10 +36,23 @@ escalate into larger problems.
 6. It is not allowed to force push to the branch on which the pull
    request is based.
 
-## Pull Request Requirements
+## License
 
-For a Pull Request to be considered at all it has to meet these requirements:
+All code must be licensed under the Apache 2.0 license and all files 
+must include the following copyright header:
 
-1. If applicable, the new or fixed features must be accompanied by comprehensive tests.
-2. If applicable, the pull request must contain all necessary documentation updates required by the changes introduced.
-3. The pull request must not contain changes that are unrelated to the ticket that it corresponds to. One pull request is meant to introduce only one logically contiguous change.
+```
+Copyright (c) $today.year by its authors. Some rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```

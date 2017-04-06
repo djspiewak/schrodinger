@@ -106,8 +106,7 @@ lazy val doNotPublishArtifact = Seq(
 
 lazy val unidocSettings = Seq(
   autoAPIMappings := true,
-  unidocProjectFilter in (ScalaUnidoc, unidoc) :=
-    inProjects(effectsJVM, effectsJS),
+  unidocProjectFilter in (ScalaUnidoc, unidoc) := inProjects(coreJVM),
 
   // Exclude monix.execution.atomic.internals from ScalaDoc
   sources in (ScalaUnidoc, unidoc) ~= (_ filterNot { file =>
@@ -128,20 +127,20 @@ lazy val unidocSettings = Seq(
     Opts.doc.version(s"${version.value}")
 )
 
-lazy val effects = project.in(file("."))
+lazy val effects4s = project.in(file("."))
   .enablePlugins(ScalaUnidocPlugin)
-  .aggregate(effectsJVM, effectsJS)
+  .aggregate(coreJVM, coreJS)
   .settings(sharedSettings)
   .settings(doNotPublishArtifact)
   .settings(unidocSettings)
 
-lazy val effectsCommon = sharedSettings ++ Seq(
-  name := "effects"
+lazy val coreCommon = sharedSettings ++ Seq(
+  name := "effects4s"
 )
 
-lazy val effectsJVM = project.in(file("./.jvm"))
-  .settings(effectsCommon)
+lazy val coreJVM = project.in(file("./.jvm"))
+  .settings(coreCommon)
 
-lazy val effectsJS = project.in(file("./.js"))
+lazy val coreJS = project.in(file("./.js"))
   .enablePlugins(ScalaJSPlugin)
-  .settings(effectsCommon)
+  .settings(coreCommon)

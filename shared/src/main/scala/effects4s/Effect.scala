@@ -1,15 +1,26 @@
-package org.typelevel.effects
+/*
+ * Copyright (c) 2017 by its authors. Some rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-import org.typelevel.effects.instances.AsyncFuture
-
-import scala.concurrent.{ExecutionContext, Future}
-import scala.language.higherKinds
+package effects4s
 
 /** Type-class describing `F[_]` data types capable of evaluating side-effects
   * in the `F` context and that can signal a single value or error as the result,
   * potentially asynchronous.
   */
-trait Effect[F[_]] {
+trait Effect[F[_]] extends Evaluable[F] {
   /** Extracts the `A` value out of the `F[_]` context, where
     * that value can be the result of an asynchronous computation.
     *
@@ -62,8 +73,4 @@ object Effect {
     def unsafeExtractTrySync(cb: (Either[Throwable, A]) => Handle): Either[Handle, A] =
       F.unsafeExtractTrySync(fa)(cb)
   }
-
-  /** Default [[Effect]] implementation for Scala's [[scala.concurrent.Future Future]]. */
-  implicit def futureInstance(implicit ec: ExecutionContext): Effect[Future] =
-    new AsyncFuture()
 }
