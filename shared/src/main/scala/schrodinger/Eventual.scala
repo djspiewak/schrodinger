@@ -16,19 +16,19 @@
 
 package schrodinger
 
-import schrodinger.instances.AllEffectInstances
+import schrodinger.instances.AllEventualInstances
 
 import scala.annotation.implicitNotFound
 
-/** Type-class describing `F[_]` data types capable of evaluating side-effects
-  * in the `F` context and that can signal a single value or error as the result,
-  * potentially asynchronous.
+/** Type-class describing `F[_]` data types capable of evaluating
+  * side-effects in the `F` context and that can signal a single
+  * value or error as the result, potentially asynchronous.
   */
-@implicitNotFound("""Cannot find implicit value for Effect[${F}].
+@implicitNotFound("""Cannot find implicit value for Eventual[${F}].
 Building this implicit value might depend on having an implicit
 s.c.ExecutionContext in scope, so make sure you've got one or
 try importing ExecutionContext.Implicits.global""")
-trait Effect[F[_]] extends Evaluable[F] {
+trait Eventual[F[_]] extends Evaluable[F] {
   /** Extracts the `A` value out of the `F[_]` context, where
     * that value can be the result of an asynchronous computation.
     *
@@ -62,23 +62,9 @@ trait Effect[F[_]] extends Evaluable[F] {
     *         async execution)
     */
   def unsafeExtractTrySync[A](fa: F[A])(cb: Either[Throwable, A] => Unit): Either[Unit, A]
-
-  /** Transforms any `F[A]` to an [[UnsafeIO]] implementation. */
-  def toUnsafeIO[A](fa: F[A]): UnsafeIO[A] =
-    new Effect.DefaultUnsafeIO[F, A](fa)(this)
 }
 
-object Effect extends AllEffectInstances[Effect] {
-  /** Returns the [[Async]] instance for a given `F` type. */
-  def apply[F[_]](implicit F: Async[F]): Async[F] = F
-
-  /** Generic implementation to use by default in [[Effect.toUnsafeIO]]. */
-  final class DefaultUnsafeIO[F[_], A](fa: F[A])(implicit F: Effect[F])
-    extends UnsafeIO[A] {
-
-    def unsafeExtractAsync(cb: (Either[Throwable, A]) => Unit): Unit =
-      F.unsafeExtractAsync(fa)(cb)
-    def unsafeExtractTrySync(cb: (Either[Throwable, A]) => Handle): Either[Handle, A] =
-      F.unsafeExtractTrySync(fa)(cb)
-  }
+object Eventual extends AllEventualInstances[Eventual] {
+  /** Returns the [[TaskLike]] instance for a given `F` type. */
+  def apply[F[_]](implicit F: TaskLike[F]): TaskLike[F] = F
 }

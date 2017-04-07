@@ -18,11 +18,11 @@ package schrodinger.instances
 
 import scala.concurrent.{ExecutionContext, Future}
 
-/** Groups [[schrodinger.Effect]] instances, to be inherited in companion objects.
+/** Groups [[schrodinger.Eventual]] instances, to be inherited in companion objects.
   *
   * @see [[schrodinger.Effect$ Effect]] and [[schrodinger.Evaluable$ Evaluable]].
   */
-trait AllEffectInstances[TypeClass[F[_]] >: schrodinger.Effect[F]] {
+trait AllEventualInstances[TypeClass[F[_]] >: schrodinger.Eventual[F]] {
   /** Default instances for Scala's [[scala.concurrent.Future Future]]. */
   implicit def e4sFutureInstances(implicit ec: ExecutionContext): TypeClass[Future] =
     new FutureInstances()

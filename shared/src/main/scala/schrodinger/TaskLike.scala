@@ -22,21 +22,14 @@ import scala.language.higherKinds
 /** Type-class describing `F[_]` data types capable of executing
   * asynchronous computations that produce a single result.
   */
-@implicitNotFound("""Cannot find implicit value for Async[${F}].
+@implicitNotFound("""Cannot find implicit value for TaskLike[${F}].
 Building this implicit value might depend on having an implicit
 s.c.ExecutionContext in scope, so make sure you've got one or
 try importing ExecutionContext.Implicits.global""")
-trait Async[F[_]] extends Effect[F] with Deferrable[F] {
+trait TaskLike[F[_]] extends Eventual[F] with Deferrable[F] {
   /** Creates an `F[A]` instance from a provided function
-    * that will have a callback injected for
-    * signaling the final result.
-    *
-    * Example:
-    * {{{
-    *   Async[Future].create[String] { cb =>
-    *     cb(Right("Hello, world!"))
-    *   }
-    * }}}
+    * that will have a callback injected for signaling the
+    * final result of an asynchronous process.
     *
     * @param f is a function that will be called with a callback
     *          for signaling the result once it is ready
@@ -44,7 +37,7 @@ trait Async[F[_]] extends Effect[F] with Deferrable[F] {
   def create[A](f: (Either[Throwable, A] => Unit) => Unit): F[A]
 }
 
-object Async {
-  /** Returns the [[Async]] instance for a given `F` type. */
-  @inline def apply[F[_]](implicit F: Async[F]): Async[F] = F
+object TaskLike {
+  /** Returns the [[TaskLike]] instance for a given `F` type. */
+  @inline def apply[F[_]](implicit F: TaskLike[F]): TaskLike[F] = F
 }

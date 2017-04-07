@@ -22,7 +22,7 @@ import scala.util.{Failure, Success}
 
 /** Default instances for Scala's [[scala.concurrent.Future Future]]. */
 class FutureInstances(implicit ec: ExecutionContext)
-  extends Effect[Future] with Evaluable[Future] {
+  extends Eventual[Future] with Evaluable[Future] {
 
   override def eval[A](f: => A): Future[A] =
     Future(f)

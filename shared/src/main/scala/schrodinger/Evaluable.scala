@@ -16,7 +16,7 @@
 
 package schrodinger
 
-import schrodinger.instances.AllEffectInstances
+import schrodinger.instances.AllEventualInstances
 
 import scala.annotation.implicitNotFound
 
@@ -39,11 +39,14 @@ trait Evaluable[F[_]] {
     * {{{
     *   F.pure(()).map(_ => F.pure(f))
     * }}}
+    *
+    * In case `F[_]` implements `ApplicativeError[Throwable, F]`,
+    * then `eval(throw ex)` should be equivalent with `raiseError(ex)`.
     */
   def eval[A](f: => A): F[A]
 }
 
-object Evaluable extends AllEffectInstances[Evaluable] {
+object Evaluable extends AllEventualInstances[Evaluable] {
   /** Returns the [[Evaluable]] instance for a given `F` type. */
   @inline def apply[F[_]](implicit F: Evaluable[F]): Evaluable[F] = F
 }
