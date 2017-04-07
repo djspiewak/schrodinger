@@ -26,8 +26,7 @@ import scala.annotation.implicitNotFound
   */
 @implicitNotFound("""Cannot find implicit value for Eventual[${F}].
 Building this implicit value might depend on having an implicit
-s.c.ExecutionContext in scope, so make sure you've got one or
-try importing ExecutionContext.Implicits.global""")
+s.c.ExecutionContext in scope or some other equivalent type.""")
 trait Eventual[F[_]] extends Evaluable[F] {
   /** Extracts the `A` value out of the `F[_]` context, where
     * that value can be the result of an asynchronous computation.
@@ -65,6 +64,6 @@ trait Eventual[F[_]] extends Evaluable[F] {
 }
 
 object Eventual extends AllEventualInstances[Eventual] {
-  /** Returns the [[TaskLike]] instance for a given `F` type. */
-  def apply[F[_]](implicit F: TaskLike[F]): TaskLike[F] = F
+  /** Returns the [[Async]] instance for a given `F` type. */
+  def apply[F[_]](implicit F: Async[F]): Async[F] = F
 }
