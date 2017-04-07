@@ -16,12 +16,14 @@
 
 package effects4s.instances
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
-trait AllInstances {
+/** Groups [[effects4s.Effect]] instances, to be inherited in companion objects.
+  *
+  * @see [[effects4s.Effect$ Effect]] and [[effects4s.Evaluable$ Evaluable]].
+  */
+trait AllEffectInstances[TypeClass[F[_]] >: effects4s.Effect[F]] {
   /** Default instances for Scala's [[scala.concurrent.Future Future]]. */
-  implicit def e4sFutureInstances(implicit ec: ExecutionContext): FutureInstances =
+  implicit def e4sFutureInstances(implicit ec: ExecutionContext): TypeClass[Future] =
     new FutureInstances()
 }
-
-object all extends AllInstances

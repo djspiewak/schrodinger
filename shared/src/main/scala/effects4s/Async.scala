@@ -16,11 +16,16 @@
 
 package effects4s
 
+import scala.annotation.implicitNotFound
 import scala.language.higherKinds
 
 /** Type-class describing `F[_]` data types capable of executing
   * asynchronous computations that produce a single result.
   */
+@implicitNotFound("""Cannot find implicit value for Async[${F}].
+Building this implicit value might depend on having an implicit
+s.c.ExecutionContext in scope, so make sure you've got one or
+try importing ExecutionContext.Implicits.global""")
 trait Async[F[_]] extends Effect[F] with Deferrable[F] {
   /** Creates an `F[A]` instance from a provided function
     * that will have a callback injected for

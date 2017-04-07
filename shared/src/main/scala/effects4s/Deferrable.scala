@@ -16,6 +16,8 @@
 
 package effects4s
 
+import scala.annotation.implicitNotFound
+
 /** Describes data types that allows for arbitrarily delaying the
   * evaluation of an operation, triggering its execution on each run.
   *
@@ -31,6 +33,7 @@ package effects4s
   *   F.pure(()).flatMap(_ => fa)
   * }}}
   */
+@implicitNotFound("""Cannot find implicit value for Deferrable[${F}].""")
 trait Deferrable[F[_]] extends Evaluable[F] {
   /**
     * Returns an `F[A]` that evaluates the provided by-name `fa`

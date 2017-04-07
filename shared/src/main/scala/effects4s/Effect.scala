@@ -16,10 +16,18 @@
 
 package effects4s
 
+import effects4s.instances.AllEffectInstances
+
+import scala.annotation.implicitNotFound
+
 /** Type-class describing `F[_]` data types capable of evaluating side-effects
   * in the `F` context and that can signal a single value or error as the result,
   * potentially asynchronous.
   */
+@implicitNotFound("""Cannot find implicit value for Effect[${F}].
+Building this implicit value might depend on having an implicit
+s.c.ExecutionContext in scope, so make sure you've got one or
+try importing ExecutionContext.Implicits.global""")
 trait Effect[F[_]] extends Evaluable[F] {
   /** Extracts the `A` value out of the `F[_]` context, where
     * that value can be the result of an asynchronous computation.
@@ -60,7 +68,7 @@ trait Effect[F[_]] extends Evaluable[F] {
     new Effect.DefaultUnsafeIO[F, A](fa)(this)
 }
 
-object Effect {
+object Effect extends AllEffectInstances[Effect] {
   /** Returns the [[Async]] instance for a given `F` type. */
   def apply[F[_]](implicit F: Async[F]): Async[F] = F
 

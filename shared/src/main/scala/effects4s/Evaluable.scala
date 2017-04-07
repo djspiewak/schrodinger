@@ -16,10 +16,15 @@
 
 package effects4s
 
+import effects4s.instances.AllEffectInstances
+
+import scala.annotation.implicitNotFound
+
 /** A type-class for `F[_]` data types that have a data constructor
   * taking a by-name value and that is equivalent to `Applicative.pure`
   * for pure expressions.
   */
+@implicitNotFound("""Cannot find implicit value for Evaluable[${F}].""")
 trait Evaluable[F[_]] {
   /** Constructor for `F[A]` that's going to evaluate the
     * given by-name value in the `F` context, with whatever
@@ -38,7 +43,7 @@ trait Evaluable[F[_]] {
   def eval[A](f: => A): F[A]
 }
 
-object Evaluable {
+object Evaluable extends AllEffectInstances[Evaluable] {
   /** Returns the [[Evaluable]] instance for a given `F` type. */
   @inline def apply[F[_]](implicit F: Evaluable[F]): Evaluable[F] = F
 }
