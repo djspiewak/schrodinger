@@ -1,3 +1,5 @@
+lazy val catsVersion = "0.9.0"
+
 lazy val sharedSettings = Seq(
   organization := "org.typelevel",
 
@@ -124,7 +126,7 @@ lazy val unidocSettings = Seq(
 
 lazy val effects4s = project.in(file("."))
   .enablePlugins(ScalaUnidocPlugin)
-  .aggregate(coreJVM, coreJS)
+  .aggregate(coreJVM, coreJS, lawsJVM, lawsJS)
   .settings(sharedSettings)
   .settings(doNotPublishArtifact)
   .settings(unidocSettings)
@@ -139,3 +141,22 @@ lazy val coreJVM = project.in(file("./.jvm"))
 lazy val coreJS = project.in(file("./.js"))
   .enablePlugins(ScalaJSPlugin)
   .settings(coreCommon)
+
+lazy val lawsCommon = sharedSettings ++ Seq(
+  name := "effects4s-laws",
+  testFrameworks := Seq(new TestFramework("minitest.runner.Framework")),
+  libraryDependencies ++= Seq(
+    "org.typelevel" %%% "cats-laws" % catsVersion,
+    "io.monix" %%% "monix-execution" % "2.2.4" % Test,
+    "io.monix" %%% "minitest-laws" % "1.0.1" % Test
+  )
+)
+
+lazy val lawsJVM = project.in(file("./laws/.jvm"))
+  .settings(lawsCommon)
+  .dependsOn(coreJVM)
+
+lazy val lawsJS = project.in(file("./laws/.js"))
+  .enablePlugins(ScalaJSPlugin)
+  .settings(lawsCommon)
+  .dependsOn(coreJS)
