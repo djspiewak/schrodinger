@@ -108,19 +108,14 @@ lazy val unidocSettings = Seq(
   autoAPIMappings := true,
   unidocProjectFilter in (ScalaUnidoc, unidoc) := inProjects(coreJVM),
 
-  // Exclude monix.execution.atomic.internals from ScalaDoc
-  sources in (ScalaUnidoc, unidoc) ~= (_ filterNot { file =>
-    file.getCanonicalPath matches "^.*monix.execution.internals.*$"
-  }),
-
   scalacOptions in (ScalaUnidoc, unidoc) +=
     "-Xfatal-warnings",
   scalacOptions in (ScalaUnidoc, unidoc) -=
     "-Ywarn-unused-import",
   scalacOptions in (ScalaUnidoc, unidoc) ++=
-    Opts.doc.title(s"Monix"),
+    Opts.doc.title(s"Effects4s"),
   scalacOptions in (ScalaUnidoc, unidoc) ++=
-    Opts.doc.sourceUrl(s"https://github.com/typelevel/effects/tree/v${version.value}€{FILE_PATH}.scala"),
+    Opts.doc.sourceUrl(s"https://github.com/alexandru/effects4s/tree/v${version.value}€{FILE_PATH}.scala"),
   scalacOptions in (ScalaUnidoc, unidoc) ++=
     Seq("-doc-root-content", file("rootdoc.txt").getAbsolutePath),
   scalacOptions in (ScalaUnidoc, unidoc) ++=
