@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package effects4s
+package schrodinger
 package laws
 package discipline
 
@@ -23,7 +23,7 @@ import cats.{ApplicativeError, Eq, Monad}
 import org.scalacheck.Prop.forAll
 import org.scalacheck.{Arbitrary, Prop}
 
-/** Tests that have to be passed by [[effects4s.Deferrable]], assuming
+/** Tests that have to be passed by [[schrodinger.Deferrable]], assuming
   * that the `F[_]` data-type is also a [[cats.Monad]].
   */
 trait DeferrableTests[F[_]] extends EvaluableTests[F] {
@@ -68,7 +68,7 @@ trait DeferrableTests[F[_]] extends EvaluableTests[F] {
 }
 
 object DeferrableTests {
-  /** Tests that have to be passed by [[effects4s.Deferrable]], assuming
+  /** Tests that have to be passed by [[schrodinger.Deferrable]], assuming
     * that the `F[_]` data-type is also a [[cats.Monad]].
     */
   def apply[F[_] : Deferrable : Monad]: DeferrableTests[F] =

@@ -1,13 +1,13 @@
-# Contributing to Effects4s
+# Contributing to Schrodinger
 
-The Effects4s project welcomes contributions from anybody wishing to participate.
+The Schrodinger project welcomes contributions from anybody wishing to participate.
 All code or documentation that is provided must be licensed with the same
-license that Effects4s is licensed with (Apache 2.0, see LICENSE.txt).
+license that Schrodinger is licensed with (Apache 2.0, see LICENSE.txt).
 
 ## Code of Conduct
 
 People are expected to follow the [Typelevel Code of Conduct](http://typelevel.org/conduct.html)
-when discussing Effects4s on the GitHub page, Gitter channel, or other venues.
+when discussing Schrodinger on the GitHub page, Gitter channel, or other venues.
 
 We hope that our community will be respectful, helpful, and kind. If you find 
 yourself embroiled in a situation that becomes heated, or that fails to live up 

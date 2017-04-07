@@ -1,4 +1,4 @@
-# Effects4s
+# Typelevel Schrodinger
 
 Common communication protocol for IO / Task data types.
 

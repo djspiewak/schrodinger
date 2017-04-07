@@ -115,16 +115,16 @@ lazy val unidocSettings = Seq(
   scalacOptions in (ScalaUnidoc, unidoc) -=
     "-Ywarn-unused-import",
   scalacOptions in (ScalaUnidoc, unidoc) ++=
-    Opts.doc.title(s"Effects4s"),
+    Opts.doc.title(s"Schrodinger"),
   scalacOptions in (ScalaUnidoc, unidoc) ++=
-    Opts.doc.sourceUrl(s"https://github.com/alexandru/effects4s/tree/v${version.value}€{FILE_PATH}.scala"),
+    Opts.doc.sourceUrl(s"https://github.com/typelevel/schrodinger/tree/v${version.value}€{FILE_PATH}.scala"),
   scalacOptions in (ScalaUnidoc, unidoc) ++=
     Seq("-doc-root-content", file("rootdoc.txt").getAbsolutePath),
   scalacOptions in (ScalaUnidoc, unidoc) ++=
     Opts.doc.version(s"${version.value}")
 )
 
-lazy val effects4s = project.in(file("."))
+lazy val schrodinger = project.in(file("."))
   .enablePlugins(ScalaUnidocPlugin)
   .aggregate(coreJVM, coreJS, lawsJVM, lawsJS)
   .settings(sharedSettings)
@@ -132,7 +132,7 @@ lazy val effects4s = project.in(file("."))
   .settings(unidocSettings)
 
 lazy val coreCommon = sharedSettings ++ Seq(
-  name := "effects4s"
+  name := "schrodinger"
 )
 
 lazy val coreJVM = project.in(file("./.jvm"))
@@ -143,7 +143,7 @@ lazy val coreJS = project.in(file("./.js"))
   .settings(coreCommon)
 
 lazy val lawsCommon = sharedSettings ++ Seq(
-  name := "effects4s-laws",
+  name := "schrodinger-laws",
   testFrameworks := Seq(new TestFramework("minitest.runner.Framework")),
   libraryDependencies ++= Seq(
     "org.typelevel" %%% "cats-laws" % catsVersion,

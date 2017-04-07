@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package effects4s
+package schrodinger
 
-import effects4s.instances.AllEffectInstances
+import schrodinger.instances.AllEffectInstances
 
 import scala.annotation.implicitNotFound
 

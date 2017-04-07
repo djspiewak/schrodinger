@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-package effects4s
+package schrodinger.instances
 
-import effects4s.laws.discipline.EvaluableTests
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-object FutureLawsSuite extends BaseLawsSuite {
-  checkAll("Evaluable[Future]") { implicit ec =>
-    EvaluableTests[Future].evaluableWithError[Int, Long]
-  }
+/** Groups [[schrodinger.Effect]] instances, to be inherited in companion objects.
+  *
+  * @see [[schrodinger.Effect$ Effect]] and [[schrodinger.Evaluable$ Evaluable]].
+  */
+trait AllEffectInstances[TypeClass[F[_]] >: schrodinger.Effect[F]] {
+  /** Default instances for Scala's [[scala.concurrent.Future Future]]. */
+  implicit def e4sFutureInstances(implicit ec: ExecutionContext): TypeClass[Future] =
+    new FutureInstances()
 }

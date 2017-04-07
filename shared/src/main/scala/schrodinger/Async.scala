@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package effects4s
+package schrodinger
 
 import scala.annotation.implicitNotFound
 import scala.language.higherKinds

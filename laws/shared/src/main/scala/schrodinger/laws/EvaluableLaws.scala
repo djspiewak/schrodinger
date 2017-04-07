@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package effects4s
+package schrodinger
 package laws
 
 import cats.{Applicative, ApplicativeError}
 import cats.laws._
 import cats.syntax.all._
 
-/** Laws that have to be satisfied by [[effects4s.Evaluable]], assuming
+/** Laws that have to be satisfied by [[schrodinger.Evaluable]], assuming
   * that the `F[_]` data-type is also a [[cats.Applicative]].
   */
 trait EvaluableLaws[F[_]] {

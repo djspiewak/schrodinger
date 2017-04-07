@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package effects4s
+package schrodinger
 
 /** Common OOP interface for effects-triggering abstractions,
   * like `IO`, `Task`, `Future`, etc.

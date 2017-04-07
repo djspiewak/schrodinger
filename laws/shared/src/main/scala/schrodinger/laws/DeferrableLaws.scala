@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package effects4s
+package schrodinger
 package laws
 
 import cats.Monad
 import cats.laws._
 import cats.syntax.all._
-import effects4s.laws.DeferrableLaws.StatefulBox
+import schrodinger.laws.DeferrableLaws.StatefulBox
 
-/** Laws that have to be passed by [[effects4s.Deferrable]], assuming
+/** Laws that have to be passed by [[schrodinger.Deferrable]], assuming
   * that the `F[_]` data-type is also a [[cats.Monad]].
   */
 trait DeferrableLaws[F[_]] extends EvaluableLaws[F] {

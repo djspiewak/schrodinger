@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package effects4s
+package schrodinger
 package instances
 
 import scala.concurrent.{ExecutionContext, Future}

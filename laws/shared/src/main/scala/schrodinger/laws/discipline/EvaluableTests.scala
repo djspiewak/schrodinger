@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package effects4s
+package schrodinger
 package laws
 package discipline
 
@@ -23,7 +23,7 @@ import org.scalacheck.Arbitrary
 import org.scalacheck.Prop.forAll
 import org.typelevel.discipline.Laws
 
-/** Tests that have to be passed by [[effects4s.Evaluable]], assuming
+/** Tests that have to be passed by [[schrodinger.Evaluable]], assuming
   * that the `F[_]` data-type is also a [[cats.Applicative]].
   */
 trait EvaluableTests[F[_]] extends Laws {
