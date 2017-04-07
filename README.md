@@ -1,4 +1,4 @@
-# Typelevel Effects
+# Effects4s
 
 Common communication protocol for IO / Task data types.
 
@@ -13,4 +13,5 @@ protocol of `IO`, `Task` and `Future` data types.
 
 **Work in Progress:** Feedback appreciated! 
 
-This project would be nothing without the colaboration of interested parties. Proposal is being raised here: https://github.com/typelevel/general/issues/66
+This project would be nothing without the collaboration of interested parties. 
+Proposal is being raised here: https://github.com/typelevel/general/issues/66
